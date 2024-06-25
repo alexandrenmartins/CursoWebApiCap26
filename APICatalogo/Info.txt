@@ -1,0 +1,4 @@
+dotnet ef migrations add AjusteTabelas
+
+dotnet ef database update
+
