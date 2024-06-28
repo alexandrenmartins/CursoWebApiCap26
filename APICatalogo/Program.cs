@@ -1,5 +1,6 @@
 using APICatalogo.Context;
 using APICatalogo.Extensions;
+using APICatalogo.Filters;
 using APICatalogo.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -24,6 +25,8 @@ builder.Services.AddTransient<IMeuServico, MeuServico>();
 
 var valor1 = builder.Configuration["chave1"];
 var valor2 = builder.Configuration["secao1:chave02"];
+
+builder.Services.AddScoped<ApiLoggingFilter>();
 
 var app = builder.Build();
 
