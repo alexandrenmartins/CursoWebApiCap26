@@ -15,7 +15,7 @@ public class ApiLoggingFilter : IActionFilter
     public void OnActionExecuting(ActionExecutingContext context)
     {
         //executa antes da Action
-        _logger.LogInformation("### Executando -> OnActionExecuted");
+        _logger.LogInformation("### Executando -> OnActionExecuting");
         _logger.LogInformation("###########################################");
         _logger.LogInformation($"{DateTime.Now.ToLongTimeString()}");
         _logger.LogInformation($"ModelState : {context.ModelState.IsValid}");
@@ -25,7 +25,7 @@ public class ApiLoggingFilter : IActionFilter
     public void OnActionExecuted(ActionExecutedContext context)
     {
         //executa depois da Action
-        _logger.LogInformation("### Executando -> OnActionExecuting");
+        _logger.LogInformation("### Executando -> OnActionExecuted");
         _logger.LogInformation("###########################################");
         _logger.LogInformation($"{DateTime.Now.ToLongTimeString()}");
         _logger.LogInformation($"ModelState : {context.HttpContext.Response.StatusCode}");
