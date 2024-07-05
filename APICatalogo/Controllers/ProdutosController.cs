@@ -62,24 +62,30 @@ public class ProdutosController : ControllerBase
         if(id != produto.ProdutoId)
             return BadRequest();
 
-        _context.Entry(produto).State = EntityState.Modified;
-        _context.SaveChanges();
+        bool atualizado = _repository.Update(produto);
 
-        return Ok(produto);
-
+        if (atualizado)
+        {
+            return Ok(produto);
+        } 
+        else
+        {
+            return StatusCode(500, $"Falha ao atualizar o produto de id = {id}");
+        }
     }
 
     [HttpDelete("{id:int}")]
     public ActionResult Delete(int id)
     {
-        var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+        bool deletado = _repository.Delete(id);
 
-        if (produto is null)
-            return NotFound("Produto não encontrado...");
-
-        _context.Produtos.Remove(produto);
-        _context.SaveChanges();
-
-        return Ok(produto);
+        if (deletado)
+        {
+            return Ok($"Produto de id = {id} foi excluido");
+        }
+        else
+        {
+            return StatusCode(500, $"Falha ao excluir o produto id = {id}");
+        }
     }
 }
