@@ -13,11 +13,11 @@ namespace APICatalogo.Controllers;
 [ApiController]
 public class CategoriasController : ControllerBase
 {
-    private readonly ICategoriaRepository _repository;
+    private readonly IRepository<Categoria> _repository;
     private readonly IConfiguration _configuration;
     private readonly ILogger _logger;
 
-    public CategoriasController(ICategoriaRepository repository, IConfiguration configuration, ILogger<CategoriasController> logger)
+    public CategoriasController(IRepository<Categoria> repository, IConfiguration configuration, ILogger<CategoriasController> logger)
     {
         _repository = repository;
         _configuration = configuration;
@@ -55,7 +55,7 @@ public class CategoriasController : ControllerBase
     public ActionResult<IEnumerable<Categoria>> Get()
     {
         _logger.LogInformation("================== GET api/categorias ==================");
-        var categorias = _repository.GetCategorias();
+        var categorias = _repository.GetAll();
         //if (categorias is null)
           //  return NotFound("Nenhum categoria encontrada!");
 
@@ -68,7 +68,7 @@ public class CategoriasController : ControllerBase
 
         //throw new ArgumentException("Exceção de teste ao retornar o produto Id");
 
-        var categoria = _repository.GetCategoria(id);
+        var categoria = _repository.Get(c => c.CategoriaId == id);
         if (categoria is null)
         {
             _logger.LogWarning($"Categoria com id={id} não encontrada...");
