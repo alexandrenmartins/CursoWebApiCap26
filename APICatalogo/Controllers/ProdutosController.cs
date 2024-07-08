@@ -32,9 +32,10 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-    public ActionResult<Produto> Get(int id, [BindRequired]string nome)
+    //public ActionResult<Produto> Get(int id, [BindRequired]string nome)
+    public ActionResult<Produto> Get(int id)
     {
-        var nomeProduto = nome;
+        //var nomeProduto = nome;
         var produto = _repository.GetProduto(id);
         if(produto is null) 
         {
